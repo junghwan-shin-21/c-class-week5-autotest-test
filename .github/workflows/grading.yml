@@ -51,6 +51,6 @@ jobs:
             exit 1
           fi
 
-          echo "::notice::✔ 모든 테스트를 통과했습니다. PASS!"
+          echo "::notice::✔ 모든 테스트를 통과했습니다. PASS!!"
           echo "::endgroup::"
           
