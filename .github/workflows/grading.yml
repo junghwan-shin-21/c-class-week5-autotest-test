@@ -10,11 +10,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Setup GCC
-        uses: jwlawrence/setup-gcc@v1
-        with:
-          gcc-version: '11'
-
       - name: Grade the submission
         run: |
           echo "::group::채점 시작"
@@ -23,14 +18,17 @@ jobs:
           # 1. 실행 결과 확인
           # =========================================================
           echo "1. 실행 결과 확인 중..."
+          # GCC로 컴파일
           gcc main.c -o myprogram
           if [ $? -ne 0 ]; then
             echo "::error::컴파일 실패. 코드를 확인해주세요."
             exit 1
           fi
 
+          # 프로그램 실행 결과를 output.txt에 저장
           ./myprogram > output.txt
           
+          # output.txt와 정답 파일(correct_output.txt) 비교
           if diff -q output.txt correct_output.txt >/dev/null; then
             echo "::notice::✔ 실행 결과가 정답과 일치합니다."
           else
